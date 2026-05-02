@@ -1,48 +1,45 @@
-import { useEffect, useState } from 'react';
+import { Suspense, lazy } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { Header } from '@/components/Layout/Header';
-import { MapContainer } from '@/components/Map/MapContainer';
-import { MapLegend } from '@/components/Map/MapLegend';
-import { LayerControls } from '@/components/Map/LayerControls';
 import '@/styles/globals.css';
 import '@/styles/map.css';
-import { FixtureReader } from './data/fixture-reader';
-import type { LayerVisibilityMap } from './types/map';
-import type { FeatureCollection } from './types/geometry';
+
+// Lazy-load page components for code splitting
+const MapPage = lazy(() => import('@/pages/MapPage').then(m => ({ default: m.MapPage })));
+const AdminPage = lazy(() => import('@/pages/AdminPage').then(m => ({ default: m.AdminPage })));
+const WorkflowPage = lazy(() => import('@/pages/WorkflowPage').then(m => ({ default: m.WorkflowPage })));
+const NotFoundPage = lazy(() => import('@/pages/NotFoundPage').then(m => ({ default: m.NotFoundPage })));
 
 /**
- * Main application component that composes the entire UI
- * Manages the map state and renders the map with its controls
+ * Main application component that handles routing and layout
+ * Provides the foundational navigation structure for the application
+ * with routes for Map View, Admin Dashboard, and Workflow pages.
  * @component
- * @returns {JSX.Element} The complete application layout with header and map interface
+ * @returns {JSX.Element} The complete application layout with routing
  */
 function App() {
-  const [layers, setLayers] = useState<FeatureCollection[]>([])
-  const [layerVisibility, setLayerVisibility] = useState<LayerVisibilityMap>({})
-
-  useEffect(() => {
-    FixtureReader.collections()
-      .then(collections => {
-        setLayers([...collections])
-
-        // Take the name property of each collection and set it's initial visibility to true
-        const layerNames = collections.map((fc) => fc.name )
-        const visibilityMap = layerNames.reduce((map, name) => { map[name] = true; return map }, {} as LayerVisibilityMap)
-        setLayerVisibility({...visibilityMap})
-      },)
-  }, [])
-
-  const layersToRender = layers.filter((fc) => layerVisibility[fc.name])
-
   return (
     <div className="app-container">
       <Header />
       <main className="main-content">
-        <MapContainer layers={layersToRender} />
-        {/*<MapLegend />*/}
-        <LayerControls
-          visibilityMap={layerVisibility}
-          onLayerChange={setLayerVisibility}
-        />
+        <Suspense fallback={<div className="page-placeholder"><div className="page-placeholder__icon">⏳</div><p>Loading...</p></div>}>
+          <Routes>
+            {/* Primary map view — renders map + layer controls */}
+            <Route path="/map" element={<MapPage />} />
+
+            {/* Admin dashboard — placeholder for future admin functionality */}
+            <Route path="/admin" element={<AdminPage />} />
+
+            {/* Workflow management — placeholder for future workflow tools */}
+            <Route path="/workflow" element={<WorkflowPage />} />
+
+            {/* Root redirect to map */}
+            <Route path="/" element={<Navigate to="/map" replace />} />
+
+            {/* 404 fallback for unknown routes */}
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </Suspense>
       </main>
     </div>
   );

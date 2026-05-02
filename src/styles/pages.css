@@ -1,0 +1,128 @@
+/* Placeholder page styles for Admin, Workflow, and NotFound pages */
+.page-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 16px;
+  padding: 40px;
+  text-align: center;
+}
+
+.page-placeholder__icon {
+  font-size: 64px;
+  line-height: 1;
+  filter: grayscale(0.2);
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.page-placeholder__title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.dark .page-placeholder__title {
+  color: #e2e8f0;
+}
+
+.page-placeholder__description {
+  font-size: 16px;
+  color: #64748b;
+  margin: 0;
+  max-width: 400px;
+  line-height: 1.6;
+}
+
+.dark .page-placeholder__description {
+  color: #94a3b8;
+}
+
+.page-placeholder__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+  color: #667eea;
+  border: 1px solid rgba(102, 126, 234, 0.3);
+}
+
+.dark .page-placeholder__badge {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+  color: #a5b4fc;
+  border-color: rgba(102, 126, 234, 0.4);
+}
+
+.page-placeholder__link {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 24px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.page-placeholder__link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+/* Navigation link styles for Header */
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.header-nav__link {
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  color: #4a5568;
+  transition: all 0.2s ease;
+}
+
+.header-nav__link:hover {
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+}
+
+.header-nav__link--active {
+  background: rgba(102, 126, 234, 0.15);
+  color: #667eea;
+  font-weight: 600;
+}
+
+.dark .header-nav__link {
+  color: #a0aec0;
+}
+
+.dark .header-nav__link:hover {
+  background: rgba(102, 126, 234, 0.2);
+  color: #a5b4fc;
+}
+
+.dark .header-nav__link--active {
+  background: rgba(102, 126, 234, 0.25);
+  color: #a5b4fc;
+}

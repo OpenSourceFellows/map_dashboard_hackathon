@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Globe, Moon, Sun } from 'lucide-react';
+import { NavLink } from 'react-router-dom';
+import { Globe, Moon, Sun, Map, Settings, Workflow } from 'lucide-react';
+import '@/styles/pages.css';
 
 /**
- * Header component with the application logo, title, and dark mode toggle
+ * Header component with the application logo, navigation links, and dark mode toggle
  * @component
- * @returns {JSX.Element} The application header with ProgramEarth branding and dark mode toggle
+ * @returns {JSX.Element} The application header with ProgramEarth branding, navigation, and dark mode toggle
  */
 export const Header: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -39,6 +41,37 @@ export const Header: React.FC = () => {
         </div>
         <span>ProgramEarth</span>
       </div>
+
+      {/* Navigation links */}
+      <nav className="header-nav">
+        <NavLink
+          to="/map"
+          className={({ isActive }) =>
+            `header-nav__link ${isActive ? 'header-nav__link--active' : ''}`
+          }
+        >
+          <Map size={16} style={{ marginRight: 6, verticalAlign: 'middle' }} />
+          Map
+        </NavLink>
+        <NavLink
+          to="/admin"
+          className={({ isActive }) =>
+            `header-nav__link ${isActive ? 'header-nav__link--active' : ''}`
+          }
+        >
+          <Settings size={16} style={{ marginRight: 6, verticalAlign: 'middle' }} />
+          Admin
+        </NavLink>
+        <NavLink
+          to="/workflow"
+          className={({ isActive }) =>
+            `header-nav__link ${isActive ? 'header-nav__link--active' : ''}`
+          }
+        >
+          <Workflow size={16} style={{ marginRight: 6, verticalAlign: 'middle' }} />
+          Workflow
+        </NavLink>
+      </nav>
       
       <div className="header-controls">
         <div className="dark-mode-container">
