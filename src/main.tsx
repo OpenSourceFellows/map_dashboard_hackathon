@@ -1,5 +1,6 @@
 import React, { useState, useMemo, createContext } from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App.tsx';
 import { createTheme, ThemeProvider, CssBaseline, GlobalStyles } from '@mui/material';
 import '@/styles/reset.css';
@@ -112,7 +113,9 @@ function Main() {
               },
             })}
           />
-          <App />
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
         </ThemeProvider>
       </ColorModeContext.Provider>
     </React.StrictMode>
@@ -121,3 +124,4 @@ function Main() {
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(<Main />);
+
