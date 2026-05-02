@@ -4,8 +4,15 @@ import { Globe, Moon } from 'lucide-react';
 import { ColorModeContext } from '@/main';
 
 
-/* Renders the application header with branding and layout scaffolding.
- * Includes a static light-mode theme toggle UI for styling and future interactivity.
+import React, { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
+import { Globe, Moon, Sun, Map, Settings, Workflow } from 'lucide-react';
+import '@/styles/pages.css';
+
+/**
+ * Header component with the application logo, navigation links, and dark mode toggle
+ * @component
+ * @returns {JSX.Element} The application header with ProgramEarth branding, navigation, and dark mode toggle
  */
 export function Header(): JSX.Element {
   const { mode, toggleMode } = useContext(ColorModeContext);
@@ -13,62 +20,53 @@ export function Header(): JSX.Element {
 
 
   return (
-    <Box
-      component="header"
-      className="header flex-row-align-center"
-      role="banner"
-      sx={{
-        justifyContent: 'space-between',
-        gap: 'var(--row-1)',
-        padding: 'var(--col-1) var(--col-1)',
-      }}
-    >
-      <Box
-        component="a"
-        href="/"
-        className="header-logo flex-row-align-center"
-        aria-label="ProgramEarth"
-        sx={{
-          gap: 'var(--col-gutter)',
-        }}
-      >
-        <Box
-          className="logo-icon flex-row-align-center"
-          sx={{
-            justifyContent: 'center',
-          }}
-        >
-          <Globe size={18} aria-hidden="true" />
-        </Box>
-        <h2 aria-hidden="true">ProgramEarth</h2>
-      </Box>
+    <header className="header">
+      <div className="header-logo">
+        <div className="logo-icon">
+          <Globe size={18} />
+        </div>
+        <span>ProgramEarth</span>
+      </div>
 
-      {/* Light / Dark Mode UI (static, light mode default) */}
-      <Box
-        className="light-dark-container"
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 'var(--row-1)',
-          ml: 'auto',
-        }}
-      >
-        <Box
-          className="light-dark-controller"
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 'var(--row-gutter)',
-          }}
+      {/* Navigation links */}
+      <nav className="header-nav">
+        <NavLink
+          to="/map"
+          className={({ isActive }) =>
+            `header-nav__link ${isActive ? 'header-nav__link--active' : ''}`
+          }
         >
-          <Typography component="span" className="mode-label">
-            Dark Mode
-          </Typography>
-
-          <IconButton
-            id="theme-toggle"
-            className={`toggle-box ${isDarkMode ? 'toggle-box--active' : ''}`}
-            onClick={toggleMode}
+          <Map size={16} style={{ marginRight: 6, verticalAlign: 'middle' }} />
+          Map
+        </NavLink>
+        <NavLink
+          to="/admin"
+          className={({ isActive }) =>
+            `header-nav__link ${isActive ? 'header-nav__link--active' : ''}`
+          }
+        >
+          <Settings size={16} style={{ marginRight: 6, verticalAlign: 'middle' }} />
+          Admin
+        </NavLink>
+        <NavLink
+          to="/workflow"
+          className={({ isActive }) =>
+            `header-nav__link ${isActive ? 'header-nav__link--active' : ''}`
+          }
+        >
+          <Workflow size={16} style={{ marginRight: 6, verticalAlign: 'middle' }} />
+          Workflow
+        </NavLink>
+      </nav>
+      
+      <div className="header-controls">
+        <div className="dark-mode-container">
+          <span className="dark-mode-label">
+            {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+          </span>
+          <button
+            className={`dark-mode-toggle ${isDarkMode ? 'dark-mode-toggle--active' : ''}`}
+            onClick={toggleDarkMode}
             aria-label={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
             role="switch"
             aria-checked={isDarkMode}
