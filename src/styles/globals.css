@@ -41,6 +41,12 @@ body {
     flex: 1;
     position: relative;
     overflow: hidden;
+    transition: flex 0.3s ease;
+}
+
+/* When project detail view is open, shrink the map area */
+.main-content--detail-open {
+    flex: 0.55;
 }
 
 /* Checkbox component styles */
