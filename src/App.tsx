@@ -90,7 +90,7 @@ function App(): JSX.Element {
       <Box 
         className="app-wrapper flex-column"
         sx={{
-          height: '100vh',
+          height: 'calc(100vh - calc(var(--col-gutter) * 2))',
         }}
       >
         <Header />

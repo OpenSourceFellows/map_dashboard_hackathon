@@ -1,5 +1,6 @@
-import { type JSX } from 'react';
-import { Box, Checkbox } from '@mui/material';
+import { useState, type JSX } from 'react';
+import { Box, Checkbox, useTheme, useMediaQuery, Fab, Drawer, IconButton } from '@mui/material';
+import { Menu, X } from 'lucide-react';
 import type { LayerVisibilityMap } from '@/types/map';
 
 
@@ -14,31 +15,28 @@ interface LayerControlsProps {
 }
 
 
-/* Renders a control panel for toggling map data layers on and off. */
+/* Renders a control panel for toggling map data layers on and off. 
+ * Adaptive design: Drawer/FAB on mobile (< 600px), absolute Box on desktop.
+ */
 export function LayerControls({
   visibilityMap,
   onLayerChange,
 }: LayerControlsProps): JSX.Element {
-  return (
-    <Box
-      component="section"
-      className="gen-components controls-wrapper"
-      aria-labelledby="layer-controls-title"
-      role="region"
-      sx={{
-        position: 'absolute',
-        top: 'var(--col-1)',
-        right: 'var(--col-1)',
-        minWidth: 'var(--width-controls)',
-        padding: 'var(--col-1)',
-        zIndex: 'var(--zIndex)',
-      }}
-    >
-      <h3 id="layer-controls-title" className="gen-header controls-header">
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const toggleDrawer = (open: boolean) => () => {
+    setDrawerOpen(open);
+  };
+
+  const menuContent = (
+    <>
+      <h3 id="layer-controls-title" className="gen-header controls-header" style={{ marginBottom: '16px' }}>
         Map Data Layers
       </h3>
 
-      <ul role="group" aria-label="Map Data Layers">
+      <ul role="group" aria-label="Map Data Layers" style={{ listStyle: 'none', padding: 0, margin: 0 }}>
         {Object.entries(visibilityMap).map(([layerName, isVisible]) => (
           <Box
             component="li"
@@ -46,13 +44,14 @@ export function LayerControls({
             className="controls-item"
             sx={{
               display: 'flex',
-              alignItems: 'flex-start',
+              alignItems: 'center',
               padding: 'var(--row-gutter)',
               borderRadius: 'var(--row-gutter)',
               marginBottom: 'var(--row-gutter)',
+              minHeight: '44px', // Mobile accessibility standard
             }}
           >
-            <label>
+            <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', width: '100%', minHeight: '44px' }}>
               <Checkbox
                 checked={isVisible}
                 onChange={() =>
@@ -70,38 +69,75 @@ export function LayerControls({
           </Box>
         ))}
       </ul>
+    </>
+  );
+
+  if (isMobile) {
+    return (
+      <>
+        <Fab
+          color="primary"
+          aria-label="layers"
+          onClick={toggleDrawer(true)}
+          sx={{
+            position: 'absolute',
+            bottom: 'var(--col-1)',
+            right: 'var(--col-1)',
+            zIndex: 1000,
+            background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%)',
+          }}
+        >
+          <Menu />
+        </Fab>
+        <Drawer
+          anchor="bottom"
+          open={drawerOpen}
+          onClose={toggleDrawer(false)}
+          PaperProps={{
+            className: 'gen-components',
+            sx: {
+              borderTopLeftRadius: 'var(--border-radius)',
+              borderTopRightRadius: 'var(--border-radius)',
+              padding: 'var(--col-1)',
+              background: 'linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%)',
+              backgroundImage: 'none', // Remove MUI default overlay
+              borderBottom: 'none',
+              borderLeft: 'none',
+              borderRight: 'none',
+            }
+          }}
+        >
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 1 }}>
+            <IconButton 
+              onClick={toggleDrawer(false)} 
+              aria-label="close drawer"
+              sx={{ minWidth: '44px', minHeight: '44px' }}
+            >
+              <X size={20} />
+            </IconButton>
+          </Box>
+          {menuContent}
+        </Drawer>
+      </>
+    );
+  }
+
+  return (
+    <Box
+      component="section"
+      className="gen-components controls-wrapper"
+      aria-labelledby="layer-controls-title"
+      role="region"
+      sx={{
+        position: 'absolute',
+        top: 'var(--col-1)',
+        right: 'var(--col-1)',
+        minWidth: 'var(--width-controls)',
+        padding: 'var(--col-1)',
+        zIndex: 1000,
+      }}
+    >
+      {menuContent}
     </Box>
   );
 }
-
-
-/* Commented out from previous version:
-
-import { PawPrint, Droplets, Mountain, Calendar } from 'lucide-react';
-
-// Map layer types to icons for UI representation
-const layerIcons = {
-  species: PawPrint,
-  water: Droplets,
-  soil: Mountain,
-  events: Calendar,
-};
-
-// Render buttons for switching active layer types (with icons)
-<div className="layer-icons">
-  {Object.entries(layerIcons).map(([type, Icon]) => (
-    <button
-      key={type}
-      className={`layer-icon-button ${
-        activeLayerType === type ? 'active' : ''
-      }`}
-      onClick={() => onLayerTypeChange(type)}
-    >
-      <Icon size={20} />
-      <span className="layer-icon-text">
-        {type.charAt(0).toUpperCase() + type.slice(1)}
-      </span>
-    </button>
-  ))}
-</div>
-*/

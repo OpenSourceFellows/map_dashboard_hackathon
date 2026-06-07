@@ -160,7 +160,7 @@
 
 .toggle-box.MuiIconButton-root {
     width: 70px;
-    height: 36px;
+    height: 44px;
     border-radius: var(--border-radius);
     border: none;
     background: rgba(255, 255, 255, 0.2);
@@ -190,6 +190,10 @@
     transition: var(--app-transition);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 
+}
+
+.header .toggle__slider {
+    top: 6px !important;
 }
 
 .toggle-box--active .toggle__slider {
@@ -246,13 +250,10 @@
     box-shadow: var(--box-shadow);
 }
 
-@media (max-width: 768px) {
-    .controls-wrapper {
-        position: relative;
-        top: auto;
-        right: auto;
-        margin: 10px;
-        max-width: none;
+@media (max-width: 480px) {
+    .header h2,
+    .mode-label {
+        display: none !important;
     }
 }
 
