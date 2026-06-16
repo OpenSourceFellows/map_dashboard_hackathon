@@ -2,6 +2,7 @@ import { type JSX } from 'react'
 import { GeoJSON, Popup, Circle, Tooltip } from 'react-leaflet'
 import type { FeatureCollection } from '@/types/geometry'
 import { type Point } from 'geojson'
+import { centroid } from '@turf/turf'
 
 
 /*
@@ -29,8 +30,20 @@ export function Layer({ collection }: LayerProps): JSX.Element[] {
   return collection.features
     .filter((feature): feature is NonNullable<typeof feature> => Boolean(feature))
     .map((feature, idx) =>  {
-       const coordinates = (feature.geometry as Point).coordinates
+       const geom = feature.geometry as any
+       let coordinates: number[] = []
+       if (geom?.type === 'Point' && Array.isArray(geom.coordinates) && typeof geom.coordinates[0] === 'number') {
+         coordinates = geom.coordinates as number[]
+       } else {
+         try {
+           const c = centroid(feature as any)
+           coordinates = c?.geometry?.coordinates ?? []
+         } catch {
+           coordinates = []
+         }
+       }
 
+       const center = coordinates.length >= 2 ? [coordinates[1], coordinates[0]] as [number, number] : undefined
 
        return (
         <GeoJSON
@@ -39,17 +52,19 @@ export function Layer({ collection }: LayerProps): JSX.Element[] {
         
         >
         <Tooltip permanent>{feature.properties?.identifier ?? ''}</Tooltip>
-        // Popup is a clickable element.
+        {/* Popup is a clickable element. */}
         <Popup>
           <p>{feature.properties?.identifier ?? ''}</p>
-          <p>Land Partner(s): {feature.properties?.partners.join(', ')}</p>
-          <p>Current Acreage: {feature.properties?.measurement}</p>
-          <p>Restoration Services: {feature.properties?.restorationServices.join(', ')}</p>
+          <p>Land Partner(s): {(feature.properties?.partners ?? []).join(', ')}</p>
+          <p>Current Acreage: {feature.properties?.measurement ?? ''}</p>
+          <p>Restoration Services: {(feature.properties?.restorationServices ?? []).join(', ')}</p>
         </Popup>
-        <Circle
-          center={[coordinates[1], coordinates[0]]}
-          radius={Math.sqrt(feature.properties?.measurement * 4046.86)} // 1 acre = 4046.86 m^2
-        />
+        {center && (
+          <Circle
+            center={center}
+            radius={Math.sqrt((feature.properties?.measurement ?? 0) * 4046.86)} // 1 acre = 4046.86 m^2
+          />
+        )}
         </GeoJSON>
        )  
       }
