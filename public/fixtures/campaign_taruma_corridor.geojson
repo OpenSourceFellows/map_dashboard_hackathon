@@ -1,0 +1,34 @@
+{
+  "type": "FeatureCollection",
+  "name": "Campaign: Taruma Biodiversity Corridor",
+  "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+  "features": [
+    {
+      "type": "Feature",
+      "id": "taruma-1",
+      "properties": {
+        "id": "taruma-1",
+        "name": "Taruma Biodiversity Corridor",
+        "campaign": "Taruma Biodiversity Corridor",
+        "status": "planning",
+        "partner": "Biodiversity Alliance Brazil",
+        "acreage": 9800,
+        "watershed": "Taruma-Acu Basin",
+        "projectType": "Wildlife Corridor"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-60.1000, -3.0100],
+            [-60.0500, -3.0100],
+            [-60.0500, -3.0500],
+            [-60.0700, -3.0600],
+            [-60.1000, -3.0500],
+            [-60.1000, -3.0100]
+          ]
+        ]
+      }
+    }
+  ]
+}

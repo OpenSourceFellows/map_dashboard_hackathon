@@ -1,0 +1,34 @@
+{
+  "type": "FeatureCollection",
+  "name": "Campaign: Ducke Forest Research",
+  "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+  "features": [
+    {
+      "type": "Feature",
+      "id": "ducke-1",
+      "properties": {
+        "id": "ducke-1",
+        "name": "Ducke Forest Research",
+        "campaign": "Ducke Forest Research",
+        "status": "active",
+        "partner": "INPA Research Institute",
+        "acreage": 10000,
+        "watershed": "Upper Taruma Basin",
+        "projectType": "Research Station"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-59.9700, -2.9500],
+            [-59.9200, -2.9500],
+            [-59.9200, -2.9900],
+            [-59.9400, -3.0100],
+            [-59.9700, -3.0000],
+            [-59.9700, -2.9500]
+          ]
+        ]
+      }
+    }
+  ]
+}

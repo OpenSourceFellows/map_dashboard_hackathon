@@ -36,7 +36,7 @@ A modern, interactive map dashboard built with React and Vite. This project prov
    ```sh
    git clone https://github.com/OpenSourceFellows/dashboard-server.git
    ```
-   See the [dashboard-server repository](https://github.com/OpenSourceFellows/dashboard-server) for backend setup instructions.
+   See the [dashboard-server repository](https://github.com/OpenSourceFellows/dashboard_server) for backend setup instructions.
 
 ## Development
 
