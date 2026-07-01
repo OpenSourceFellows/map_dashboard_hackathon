@@ -12,9 +12,6 @@ import type { LayerVisibilityMap } from './types/map';
 import type { FeatureCollection } from './types/geometry';
 import { Suspense, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Header } from '@/components/Layout/Header';
-import '@/styles/globals.css';
-import '@/styles/map.css';
 
 // Lazy-load page components for code splitting
 const MapPage = lazy(() => import('@/pages/MapPage').then(m => ({ default: m.MapPage })));
