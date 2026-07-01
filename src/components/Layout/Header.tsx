@@ -1,6 +1,5 @@
 import { type JSX, useContext } from 'react'
 import { Box, Typography, IconButton } from '@mui/material';
-import { Globe, Moon } from 'lucide-react';
 import { ColorModeContext } from '@/main';
 
 
@@ -64,9 +63,9 @@ export function Header(): JSX.Element {
           <span className="dark-mode-label">
             {isDarkMode ? 'Light Mode' : 'Dark Mode'}
           </span>
-          <button
+          <IconButton
+            id="theme-toggle"
             className={`dark-mode-toggle ${isDarkMode ? 'dark-mode-toggle--active' : ''}`}
-            onClick={toggleDarkMode}
             aria-label={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
             role="switch"
             aria-checked={isDarkMode}
@@ -91,8 +90,9 @@ export function Header(): JSX.Element {
               </Box>
             </Box>
           </IconButton>
-        </Box>
-      </Box>
-    </Box>
+        </div>
+      </div>
+    </header>
   );
 }
+
