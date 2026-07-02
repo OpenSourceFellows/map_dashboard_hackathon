@@ -103,39 +103,54 @@ function App(): JSX.Element {
       >
         <SideNav />
         <Box
-          component="main" 
-          className="main-wrapper"
-          sx={{
-            flex: 1,
-            position: 'relative',
-            overflow: 'hidden',
-          }}
-        >
-          <MapContainer layers={layersToRender} />
-          {/*<MapLegend />*/}
-          <Suspense fallback={<div className="page-placeholder"><div className="page-placeholder__icon">⏳</div><p>Loading...</p></div>}>
-            <Routes>
-                {/* Primary map view — renders map + layer controls */}
-                <Route path="/map" element={<MapPage />} />
+	  component="main"
+	  className="main-wrapper"
+	  sx={{
+	    flex: 1,
+	    position: 'relative',
+	    overflow: 'hidden',
+	    ml: '86px', // sidenav width
+	    height: '100vh',
+	  }}
+	>
+	  <Suspense
+	    fallback={
+	      <div className="page-placeholder">
+		<div className="page-placeholder__icon">⏳</div>
+		<p>Loading...</p>
+	      </div>
+	    }
+	  >
+	    <Routes>
+	      {/* MAP PAGE */}
+	      <Route
+		path="/map"
+		element={
+		  <>
+		    <MapContainer layers={layersToRender} />
 
-                {/* Admin dashboard — placeholder for future admin functionality */}
-                <Route path="/admin" element={<AdminPage />} />
+		    <LayerControls
+		      visibilityMap={layerVisibility}
+		      onLayerChange={setLayerVisibility}
+		    />
+		  </>
+		}
+	      />
 
-                {/* Workflow management — placeholder for future workflow tools */}
-                <Route path="/workflow" element={<WorkflowPage />} />
+	      {/* ADMIN */}
+	      <Route path="/admin" element={<AdminPage />} />
 
-                {/* Root redirect to map */}
-                <Route path="/" element={<Navigate to="/map" replace />} />
+	      {/* WORKFLOW */}
+	      <Route path="/workflow" element={<WorkflowPage />} />
 
-                {/* 404 fallback for unknown routes */}
-                <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </Suspense>
-          <LayerControls
-            visibilityMap={layerVisibility}
-            onLayerChange={setLayerVisibility}
-          />
-        </Box>
+	      {/* Redirect */}
+	      <Route path="/" element={<Navigate to="/map" replace />} />
+
+	      {/* 404 */}
+	      <Route path="*" element={<NotFoundPage />} />
+	    </Routes>
+	  </Suspense>
+	</Box>
       </Box>
     </>
   );
