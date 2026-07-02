@@ -1,5 +1,5 @@
 import { useEffect, useState, type JSX } from 'react';
-import { Header } from '@/components/Layout/Header';
+import SideNav from '@/components/Layout/SideNav';
 import { MapContainer } from '@/components/Map/MapContainer';
 import { LayerControls } from '@/components/Map/LayerControls';
 import { Box } from '@mui/material';
@@ -25,7 +25,7 @@ const NotFoundPage = lazy(() => import('@/pages/NotFoundPage').then(m => ({ defa
  * Manages the map state and renders the map with its controls.
  * Map uses GeoJSON (docs) => https://geojson.readthedocs.io/en/latest/
  * @component
- * @returns {JSX.Element} The complete application layout with header and map interface.
+ * @returns {JSX.Element} The complete application layout with SideNav and map interface.
  */
 function App(): JSX.Element {
 
@@ -101,7 +101,7 @@ function App(): JSX.Element {
           height: 'calc(100vh - calc(var(--col-gutter) * 2))',
         }}
       >
-        <Header />
+        <SideNav />
         <Box
           component="main" 
           className="main-wrapper"
