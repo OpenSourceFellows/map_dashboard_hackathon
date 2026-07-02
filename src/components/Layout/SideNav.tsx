@@ -29,7 +29,7 @@ export default function SideNav(): JSX.Element {
   const navItems = [
     {
       icon: <FolderKanban size={22} />,
-      path: '/',
+      path: '/workflow',
       label: 'Projects',
     },
     {

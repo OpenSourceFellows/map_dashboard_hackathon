@@ -1,22 +1,26 @@
-import React from 'react';
-import '@/styles/pages.css';
 
-/**
- * Admin Dashboard placeholder page
- * This page will be expanded with admin functionality
- * such as user management and data oversight in future iterations.
- * @component
- * @returns {JSX.Element} The admin dashboard placeholder
- */
+import React from 'react';
+import { Box, Typography } from '@mui/material';
+
 export const AdminPage: React.FC = () => {
   return (
-    <div className="page-placeholder">
-      <div className="page-placeholder__icon">🛠️</div>
-      <h1 className="page-placeholder__title">Admin Dashboard</h1>
-      <p className="page-placeholder__description">
-        Administrative tools and user management will appear here.
-      </p>
-      <div className="page-placeholder__badge">Coming Soon</div>
-    </div>
+    <Box
+      sx={{
+        width: '100%',
+        height: '100vh',
+        bgcolor: '#fff',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <Typography
+        variant="h3"
+        fontWeight={600}
+        color="text.secondary"
+      >
+        Page upcoming 🛠️
+      </Typography>
+    </Box>
   );
 };
