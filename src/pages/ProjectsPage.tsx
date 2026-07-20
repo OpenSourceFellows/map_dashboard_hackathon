@@ -8,13 +8,13 @@ import '@/styles/pages.css';
  * @component
  * @returns {JSX.Element} The workflow page placeholder
  */
-export const WorkflowPage: React.FC = () => {
+export const ProjectsPage: React.FC = () => {
   return (
     <div className="page-placeholder">
       <div className="page-placeholder__icon">⚡</div>
-      <h1 className="page-placeholder__title">Workflow</h1>
+      <h1 className="page-placeholder__title">Projects</h1>
       <p className="page-placeholder__description">
-        Workflow management and task tracking will appear here.
+        Projects will appear here.
       </p>
       <div className="page-placeholder__badge">Coming Soon</div>
     </div>
