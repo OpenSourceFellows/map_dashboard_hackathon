@@ -14,9 +14,9 @@ import { Suspense, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 // Lazy-load page components for code splitting
-const MapPage = lazy(() => import('@/pages/MapPage').then(m => ({ default: m.MapPage })));
 const AdminPage = lazy(() => import('@/pages/AdminPage').then(m => ({ default: m.AdminPage })));
-const WorkflowPage = lazy(() => import('@/pages/WorkflowPage').then(m => ({ default: m.WorkflowPage })));
+const ProjectsPage = lazy(() => import('@/pages/ProjectsPage').then(m => ({ default: m.ProjectsPage })));
+const AccountPage = lazy(() => import('@/pages/AccountPage').then(m => ({ default: m.AccountPage })));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage').then(m => ({ default: m.NotFoundPage })));
 
 
@@ -141,10 +141,13 @@ function App(): JSX.Element {
 	      <Route path="/admin" element={<AdminPage />} />
 
 	      {/* WORKFLOW */}
-	      <Route path="/workflow" element={<WorkflowPage />} />
+	      <Route path="/projects" element={<ProjectsPage />} />
 
 	      {/* Redirect */}
 	      <Route path="/" element={<Navigate to="/map" replace />} />
+	      
+	      {/* ACCOUNT */}
+	      <Route path="/account" element={<AccountPage />} />
 
 	      {/* 404 */}
 	      <Route path="*" element={<NotFoundPage />} />
