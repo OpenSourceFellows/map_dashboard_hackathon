@@ -18,8 +18,62 @@ A modern, interactive map dashboard built with React and Vite. This project prov
 
 - Node.js (v20 or higher recommended)
 - pnpm (v9 or higher)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) (for DevContainer or Docker setup)
 
-## Installation
+## Getting Started
+
+### Option A: DevContainer Setup (Recommended)
+
+This is the easiest way to get started. The DevContainer automatically provisions a complete development environment with all dependencies pre-installed.
+
+**Requirements:**
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running
+- [VS Code](https://code.visualstudio.com/) with the [Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) extension
+
+**Steps:**
+
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/OpenSourceFellows/map-dashboard.git
+   cd map-dashboard
+   ```
+
+2. Open in VS Code:
+   ```sh
+   code .
+   ```
+
+3. When prompted, click **"Reopen in Container"** — or open the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`) and select **"Dev Containers: Reopen in Container"**.
+
+4. VS Code will build the Docker image and start the container. This may take a few minutes on first run. Once ready, a terminal will open inside the container.
+
+5. The dev server starts automatically. The app will be available at `http://localhost:5173`.
+
+> **Note:** The DevContainer configuration is in `.devcontainer/devcontainer.json` and uses the Docker Compose file at `.docker/docker-compose.yml`. It automatically installs the ESLint and GitLens extensions and runs `pnpm install` on container creation.
+
+### Option B: Docker Setup (Without VS Code DevContainers)
+
+If you prefer to use Docker without VS Code's DevContainer integration:
+
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/OpenSourceFellows/map-dashboard.git
+   cd map-dashboard
+   ```
+
+2. Build and start the container:
+   ```sh
+   docker compose -f .docker/docker-compose.yml up -d
+   ```
+
+3. The app will be available at `http://localhost:5173`.
+
+4. To stop the container:
+   ```sh
+   docker compose -f .docker/docker-compose.yml down
+   ```
+
+### Option C: Manual Installation (Without Docker)
 
 1. Clone the repository:
    ```sh
@@ -32,21 +86,20 @@ A modern, interactive map dashboard built with React and Vite. This project prov
    pnpm install
    ```
 
-3. **Optional**: For full development setup, you may also need the companion backend server:
+3. Start the development server:
+   ```sh
+   pnpm run dev
+   ```
+
+   The app will be available at `http://localhost:5173` by default.
+
+4. **Optional**: For full development setup, you may also need the companion backend server:
    ```sh
    git clone https://github.com/OpenSourceFellows/dashboard-server.git
    ```
    See the [dashboard-server repository](https://github.com/OpenSourceFellows/dashboard_server) for backend setup instructions.
 
 ## Development
-
-Start the development server:
-
-```sh
-pnpm run dev
-```
-
-The app will be available at `http://localhost:5173` by default.
 
 Build for production:
 
